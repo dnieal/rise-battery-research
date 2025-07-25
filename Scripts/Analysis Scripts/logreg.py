@@ -3,8 +3,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.preprocessing import StandardScaler
+import shap
 
-dataset = pd.read_csv("Data/Analysis Data/info2.csv")
+dataset = pd.read_csv("rise-battery-research\Data\Analysis Data\info2.csv")
 dataset = dataset.drop(["Battery Name", "RPT Number", "Discharge Capacity", "Past Discharge Capacity", "Percent Capacity Decrease"], axis = 1)
 
 scaler = StandardScaler()
@@ -36,3 +37,10 @@ sorted_coef_df = coef_df.sort_values(by='abs_coefficient', ascending=False)
 
 # Print sorted coefficients
 print(sorted_coef_df[['feature', 'coefficient']])
+
+# SHAP
+explainer = shap.Explainer(model, X_train)
+shap_values = explainer(X_test)
+
+# beeswarm plot with shap values
+shap.plots.beeswarm(shap_values, order=shap_values.abs.max(0))
