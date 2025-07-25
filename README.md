@@ -19,35 +19,31 @@ No specialized hardware is required beyond a standard personal computer with at 
 
 ## Documentation Map
 
-├──
-│
-└──
-
 Project/
-├──README.md
-├──Data/
-│   ├──Analysis Data
-│   │   └──info2.csv 
-│   ├──Input Data/diagnostic tests
-│   │   ├──RPT_1
-             └──Capacity_test_with_pulses
-│   │   .
-        .
-        .
-│   │   ├──RPT_19
-│   │        └──Capacity_test_with_pulses 
-│   ├──Intermediate Data
-│       ├──info.csv
-│       ├──rawInfo.csv
-│       └──rawInfo2.csv
-├──Scripts
-    ├──Analysis Scripts
-        └──logreg.py
-    ├──Processing Scripts
-        ├──csvediting.py
-        ├──csvediting2.py
-        ├──extractRaw.py
-        ├──finalcsv.py
+├── README.md
+├── Data/
+│   ├── Analysis Data/
+│   │   └── info2.csv
+│   ├── Input Data/
+│   │   └── diagnostic tests/
+│   │       ├── RPT_1/
+│   │       │   └── Capacity_test_with_pulses
+            ├──(other RPT folders…)
+│   │       └── RPT_19/
+│   │           └── Capacity_test_with_pulses
+│   ├── Intermediate Data/
+│   │   ├── info.csv
+│   │   ├── rawInfo.csv
+│   │   └── rawInfo2.csv
+├── Scripts/
+│   ├── Analysis Scripts/
+│   │   └── logreg.py
+│   └── Processing Scripts/
+│       ├── csvediting.py
+│       ├── csvediting2.py
+│       ├── extractRaw.py
+│       └── finalcsv.py
+
 
 
 ## Instructions for Reproducing Results
