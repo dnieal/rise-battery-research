@@ -15,9 +15,6 @@ Required Python packages:
 - scikit-learn 1.4.1
 - shap 0.45.1
 
-Platform:
-- macOS 14.4 (Sonoma)
-
 No specialized hardware is required beyond a standard personal computer with at least 8 GB RAM and sufficient disk space (~500 MB). To run the scripts, ensure Python 3.10 and the above packages are installed. 
 
 ## Documentation Map
