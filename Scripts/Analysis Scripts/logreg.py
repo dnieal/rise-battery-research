@@ -4,6 +4,9 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.preprocessing import StandardScaler
 import shap
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
 
 dataset = pd.read_csv("rise-battery-research\Data\Analysis Data\info2.csv")
 dataset = dataset.drop(["Battery Name", "RPT Number", "Discharge Capacity", "Past Discharge Capacity", "Percent Capacity Decrease"], axis = 1)
@@ -21,23 +24,15 @@ model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 
 print("Accuracy:", accuracy_score(y_test, y_pred))
-print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
 print("\nClassification Report:\n", classification_report(y_test, y_pred))
-
-print("\nConfusion Matrix:\n", confusion_matrix(y_train, model.predict(X_train)))
 print("\nClassification Report:\n", classification_report(y_train, model.predict(X_train)))
 
-# Confusion matrix code (trial)
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.metrics import confusion_matrix
-import numpy as np
-
+# Confusion matrix code 
 title='Confusion Matrix'
 y_true = y_test
 cm = confusion_matrix(y_true, y_pred)
 cm_sum = np.sum(cm)
-cm_perc = cm / cm_sum * 100  # Percentage
+cm_perc = cm / cm_sum * 100  # <- percentage
 
 annot = np.empty_like(cm).astype(str)
 nrows, ncols = cm.shape
@@ -48,13 +43,13 @@ for i in range(nrows):
         p = cm_perc[i, j]
         s = f"{c}\n{p:.1f}%" if c != 0 else "0\n0.0%"
         annot[i, j] = s
+
 plt.figure(1)
 sns.heatmap(cm, annot=annot, fmt='', cmap='Blues', cbar=False)
 plt.xlabel('Predicted Label')
 plt.ylabel('True Label')
 plt.title(title)
 plt.tight_layout()
-
 
 # Get coefficients and sort by absolute value
 coef_df = pd.DataFrame({
@@ -75,5 +70,5 @@ shap_values = explainer(X_test)
 plt.figure(2)
 shap.plots.beeswarm(shap_values, order=shap_values.abs.max(0), max_display = 11)
 
-
+# Print both Beeswarm and Confusion Matrix plots
 plt.show()
