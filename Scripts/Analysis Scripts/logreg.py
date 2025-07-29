@@ -27,6 +27,35 @@ print("\nClassification Report:\n", classification_report(y_test, y_pred))
 print("\nConfusion Matrix:\n", confusion_matrix(y_train, model.predict(X_train)))
 print("\nClassification Report:\n", classification_report(y_train, model.predict(X_train)))
 
+# Confusion matrix code (trial)
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
+import numpy as np
+
+title='Confusion Matrix'
+y_true = y_test
+cm = confusion_matrix(y_true, y_pred)
+cm_sum = np.sum(cm)
+cm_perc = cm / cm_sum * 100  # Percentage
+
+annot = np.empty_like(cm).astype(str)
+nrows, ncols = cm.shape
+
+for i in range(nrows):
+    for j in range(ncols):
+        c = cm[i, j]
+        p = cm_perc[i, j]
+        s = f"{c}\n{p:.1f}%" if c != 0 else "0\n0.0%"
+        annot[i, j] = s
+plt.figure(1)
+sns.heatmap(cm, annot=annot, fmt='', cmap='Blues', cbar=False)
+plt.xlabel('Predicted Label')
+plt.ylabel('True Label')
+plt.title(title)
+plt.tight_layout()
+
+
 # Get coefficients and sort by absolute value
 coef_df = pd.DataFrame({
     'feature': X.columns,
@@ -39,8 +68,12 @@ sorted_coef_df = coef_df.sort_values(by='abs_coefficient', ascending=False)
 print(sorted_coef_df[['feature', 'coefficient']])
 
 # SHAP
-explainer = shap.Explainer(model, X_train)
+explainer = shap.LinearExplainer(model, X_train)
 shap_values = explainer(X_test)
 
 # beeswarm plot with shap values
-shap.plots.beeswarm(shap_values, order=shap_values.abs.max(0))
+plt.figure(2)
+shap.plots.beeswarm(shap_values, order=shap_values.abs.max(0), max_display = 11)
+
+
+plt.show()
