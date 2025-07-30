@@ -1,30 +1,59 @@
+# Importing modules
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import shap
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
 
+<<<<<<< HEAD
+=======
+# Import Dataset
+>>>>>>> f356829f756ebdd38dda90798d66735e457ef262
 dataset = pd.read_csv("rise-battery-research\Data\Analysis Data\info2.csv")
 dataset = dataset.drop(["Battery Name", "RPT Number", "Discharge Capacity", "Past Discharge Capacity", "Percent Capacity Decrease"], axis = 1)
 
+# Normalize data
 scaler = StandardScaler()
 
+# Split the data
 X = dataset.drop(["Category"], axis = 1)
 X = pd.DataFrame(scaler.fit_transform(X), columns= X.columns)
 y = dataset["Category"]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Logistic Regression
 model = LogisticRegression()
 model.fit(X_train, y_train)
-
 y_pred = model.predict(X_test)
 
+# Print report
 print("Accuracy:", accuracy_score(y_test, y_pred))
-print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
 print("\nClassification Report:\n", classification_report(y_test, y_pred))
-
-print("\nConfusion Matrix:\n", confusion_matrix(y_train, model.predict(X_train)))
 print("\nClassification Report:\n", classification_report(y_train, model.predict(X_train)))
+
+# Confusion matrix code 
+cm = confusion_matrix(y_test, y_pred)
+cm_percentage = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis] * 100
+
+labels = np.array([
+    [f"{int(count)}\n{percent:.1f}%" for count, percent in zip(row_counts, row_percents)]
+    for row_counts, row_percents in zip(cm, cm_percentage)
+])
+
+plt.figure(1)
+sns.heatmap(cm_percentage, annot=labels, fmt='', cmap='Blues', cbar=True, linewidths=0.5)
+
+plt.title("Confusion Matrix with Percentages")
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
+plt.tight_layout()
+plt.show()
 
 # Get coefficients and sort by absolute value
 coef_df = pd.DataFrame({
@@ -37,47 +66,41 @@ sorted_coef_df = coef_df.sort_values(by='abs_coefficient', ascending=False)
 # Print sorted coefficients
 print(sorted_coef_df[['feature', 'coefficient']])
 
+# SHAP
+explainer = shap.LinearExplainer(model, X_train)
+shap_values = explainer(X_test)
 
-# from lime.lime_tabular import LimeTabularExplainer
-# import numpy as np
+# beeswarm plot with shap values
+plt.figure(2)
+shap.plots.beeswarm(shap_values, order=shap_values.abs.max(0), max_display = 11)
 
-# # Create explainer using the training data
-# explainer = LimeTabularExplainer(
-#     training_data=X_train.to_numpy(),
-#     feature_names=X.columns.tolist(),
-#     class_names=['bad', 'good'],  # or whatever your labels are
-#     mode='classification'
-# )
+# Random Forest Model
+model = RandomForestClassifier(n_estimators= 200, max_depth= 5, random_state=42)
+model.fit(X_train, y_train)
+predictions = model.predict(X_test)
 
-# # Choose a test instance to explain (e.g., the first one)
-# for i in range(5):
-#     exp = explainer.explain_instance(
-#         data_row=X_test.iloc[i].to_numpy(),
-#         predict_fn=model.predict_proba,
-#         num_features=10  # adjust based on how many top features you want to see
-#     )
+# Random Forest results:
 
-#     # Show the explanation in notebook or print as list
-#     print("\nLIME explanation for test sample #{}:".format(i))
-#     print(exp.as_list())
+# Confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+cm_percentage = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis] * 100
 
-#     import matplotlib.pyplot as plt
-#     fig = exp.as_pyplot_figure()
-#     plt.tight_layout()
-#     plt.show()
+labels = np.array([
+    [f"{int(count)}\n{percent:.1f}%" for count, percent in zip(row_counts, row_percents)]
+    for row_counts, row_percents in zip(cm, cm_percentage)
+])
 
-from sklearn.metrics import roc_curve, auc
-import matplotlib.pyplot as plt
-y_probs = model.predict_proba(X_test)[:, 1]  # Probabilities for class 1
-fpr, tpr, thresholds = roc_curve(y_test, y_probs)
-roc_auc = auc(fpr, tpr)
-plt.figure()
-plt.plot(fpr, tpr, color='blue', label=f'ROC curve (AUC = {roc_auc:.2f})')
-plt.plot([0, 1], [0, 1], color='gray', linestyle='--')  # Random guess line
-plt.xlabel('False Positive Rate')
-plt.ylabel('True Positive Rate')
-plt.title('Receiver Operating Characteristic (ROC)')
-plt.legend(loc="lower right")
-plt.grid(True)
+plt.figure(3)
+sns.heatmap(cm_percentage, annot=labels, fmt='', cmap='Blues', cbar=True, linewidths=0.5)
+
+plt.title("Confusion Matrix with Percentages")
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
 plt.tight_layout()
+plt.show()
+
+# Classification Report
+print("Classification Report:\n" , classification_report(y_test, predictions))
+
+# Print both Beeswarm and Confusion Matrix plots
 plt.show()
