@@ -74,3 +74,21 @@ for x in drop_list:
         plt.ylabel("True Label")
         # plt.tight_layout()
         plt.show()
+
+
+########## CONFUSION MATRIX
+cm = confusion_matrix(y_test, y_pred)
+cm_percentage = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis] * 100
+
+labels = np.array([
+    [f"{int(count)}\n{percent:.1f}%" for count, percent in zip(row_counts, row_percents)]
+    for row_counts, row_percents in zip(cm, cm_percentage)
+])
+
+plt.figure(1)
+sns.heatmap(cm_percentage, annot=labels, fmt='', cmap='Blues', cbar=True, linewidths=0.5)
+plt.title("Confusion Matrix with Percentages")
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
+plt.tight_layout()
+plt.show()
