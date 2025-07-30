@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.preprocessing import StandardScaler
+import shap
 
 dataset = pd.read_csv("rise-battery-research\Data\Analysis Data\info2.csv")
 dataset = dataset.drop(["Battery Name", "RPT Number", "Discharge Capacity", "Past Discharge Capacity", "Percent Capacity Decrease"], axis = 1)
@@ -37,47 +38,9 @@ sorted_coef_df = coef_df.sort_values(by='abs_coefficient', ascending=False)
 # Print sorted coefficients
 print(sorted_coef_df[['feature', 'coefficient']])
 
+# SHAP
+explainer = shap.Explainer(model, X_train)
+shap_values = explainer(X_test)
 
-# from lime.lime_tabular import LimeTabularExplainer
-# import numpy as np
-
-# # Create explainer using the training data
-# explainer = LimeTabularExplainer(
-#     training_data=X_train.to_numpy(),
-#     feature_names=X.columns.tolist(),
-#     class_names=['bad', 'good'],  # or whatever your labels are
-#     mode='classification'
-# )
-
-# # Choose a test instance to explain (e.g., the first one)
-# for i in range(5):
-#     exp = explainer.explain_instance(
-#         data_row=X_test.iloc[i].to_numpy(),
-#         predict_fn=model.predict_proba,
-#         num_features=10  # adjust based on how many top features you want to see
-#     )
-
-#     # Show the explanation in notebook or print as list
-#     print("\nLIME explanation for test sample #{}:".format(i))
-#     print(exp.as_list())
-
-#     import matplotlib.pyplot as plt
-#     fig = exp.as_pyplot_figure()
-#     plt.tight_layout()
-#     plt.show()
-
-from sklearn.metrics import roc_curve, auc
-import matplotlib.pyplot as plt
-y_probs = model.predict_proba(X_test)[:, 1]  # Probabilities for class 1
-fpr, tpr, thresholds = roc_curve(y_test, y_probs)
-roc_auc = auc(fpr, tpr)
-plt.figure()
-plt.plot(fpr, tpr, color='blue', label=f'ROC curve (AUC = {roc_auc:.2f})')
-plt.plot([0, 1], [0, 1], color='gray', linestyle='--')  # Random guess line
-plt.xlabel('False Positive Rate')
-plt.ylabel('True Positive Rate')
-plt.title('Receiver Operating Characteristic (ROC)')
-plt.legend(loc="lower right")
-plt.grid(True)
-plt.tight_layout()
-plt.show()
+# beeswarm plot with shap values
+shap.plots.beeswarm(shap_values, order=shap_values.abs.max(0))
