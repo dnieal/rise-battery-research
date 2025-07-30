@@ -10,10 +10,7 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 
-<<<<<<< HEAD
-=======
 # Import Dataset
->>>>>>> f356829f756ebdd38dda90798d66735e457ef262
 dataset = pd.read_csv("rise-battery-research\Data\Analysis Data\info2.csv")
 dataset = dataset.drop(["Battery Name", "RPT Number", "Discharge Capacity", "Past Discharge Capacity", "Percent Capacity Decrease"], axis = 1)
 
