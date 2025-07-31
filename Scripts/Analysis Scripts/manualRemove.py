@@ -41,42 +41,7 @@ for x in drop_list:
     print("\nConfusion Matrix:\n", confusion_matrix(y_train, model.predict(X_train)))
     print("\nClassification Report:\n", classification_report(y_train, model.predict(X_train)))
 
-    if (x == []):
-        # # Get coefficients and sort by absolute value
-        # coef_df = pd.DataFrame({
-        #     'feature': X.columns,
-        #     'coefficient': model.coef_[0]
-        # })
-        # coef_df['abs_coefficient'] = coef_df['coefficient'].abs()
-        # sorted_coef_df = coef_df.sort_values(by='abs_coefficient', ascending=False)
-
-        # # Print sorted coefficients
-        # print(sorted_coef_df[['feature', 'coefficient']])
-
-
-        cm = confusion_matrix(y_test, y_pred)
-        cm_percentage = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis] * 100
-
-        labels = np.array([
-            [f"{int(count)}\n{percent:.1f}%" for count, percent in zip(row_counts, row_percents)]
-            for row_counts, row_percents in zip(cm, cm_percentage)])
-        
-        print(labels)
-        
-        # plt.figure(1)
-        sns.heatmap(cm_percentage, annot=labels
-                      , fmt=''
-                    #   , cmap='Blues', cbar=True, linewidths=0.5
-                    )
-
-        plt.title("Confusion Matrix with Percentages")
-        plt.xlabel("Predicted Label")
-        plt.ylabel("True Label")
-        # plt.tight_layout()
-        plt.show()
-
-
-########## CONFUSION MATRIX
+# CONFUSION MATRIX
 cm = confusion_matrix(y_test, y_pred)
 cm_percentage = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis] * 100
 
@@ -91,4 +56,14 @@ plt.title("Confusion Matrix with Percentages")
 plt.xlabel("Predicted Label")
 plt.ylabel("True Label")
 plt.tight_layout()
+
+# SHAP
+explainer = shap.LinearExplainer(model, X_train)
+shap_values = explainer(X_test)
+
+# beeswarm plot with shap values
+plt.figure(2)
+shap.plots.beeswarm(shap_values, order=shap_values.abs.max(0), max_display = 21)
+
+# Print both Beeswarm and Confusion Matrix plots
 plt.show()
