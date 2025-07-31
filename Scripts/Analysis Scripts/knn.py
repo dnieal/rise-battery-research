@@ -1,13 +1,12 @@
-import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+import shap
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-import shap
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
-from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestClassifier
+import pandas as pd
 
 # Import Dataset
 dataset = pd.read_csv("rise-battery-research\Data\Analysis Data\info2.csv")
@@ -23,15 +22,17 @@ y = dataset["Category"]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Random Forest Model
-model = RandomForestClassifier(n_estimators= 200, max_depth= 5, random_state=42)
+# Model 1
+model = KNeighborsClassifier(n_neighbors= 6)  # k=3
 model.fit(X_train, y_train)
-predictions = model.predict(X_test)
 
-# Random Forest results:
+# Accuracy
+y_pred = model.predict(X_test)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
 
-# Confusion matrix
-cm = confusion_matrix(y_test, predictions)
+# Confusion Matrix
+cm = confusion_matrix(y_test, y_pred)
 cm_percentage = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis] * 100
 
 labels = np.array([
@@ -45,23 +46,4 @@ plt.title("Confusion Matrix with Percentages")
 plt.xlabel("Predicted Label")
 plt.ylabel("True Label")
 plt.tight_layout()
-plt.show()
-
-# Classification Report
-print("Classification Report:\n" , classification_report(y_test, predictions))
-
-# FEATURE ranking
-importances = model.feature_importances_
-features = X_train.columns
-
-indices = np.argsort(importances)[::-1]  # Sort features by importance descending
-
-plt.figure(2)
-plt.figure(figsize=(10,6))
-plt.title("Feature Importances (Random Forest)")
-plt.bar(range(len(importances)), importances[indices], align='center')
-plt.xticks(range(len(importances)), features[indices], rotation=90)
-plt.tight_layout()
-
-# Plots
 plt.show()

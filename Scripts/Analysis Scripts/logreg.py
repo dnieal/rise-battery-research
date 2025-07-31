@@ -69,7 +69,9 @@ shap_values = explainer(X_test)
 
 # beeswarm plot with shap values
 plt.figure(2)
+plt.figure(figsize=(10, 8))
 shap.plots.beeswarm(shap_values, order=shap_values.abs.max(0), max_display = 11)
+plt.savefig("beeswarm_linearexplainer.png", bbox_inches="tight")
 
 # Print both Beeswarm and Confusion Matrix plots
 plt.show()
