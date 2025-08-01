@@ -82,3 +82,41 @@ for i in range(10):
         # plt.grid(True)
         # plt.tight_layout()
         # plt.show()
+
+
+
+# Commenting this out so we can run the code for all confusion matrices
+
+# # CONFUSION MATRIX
+# cm = confusion_matrix(y_test, y_pred)
+# cm_percentage = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis] * 100
+
+# labels = np.array([
+#     [f"{int(count)}\n{percent:.1f}%" for count, percent in zip(row_counts, row_percents)]
+#     for row_counts, row_percents in zip(cm, cm_percentage)
+# ])
+
+# plt.figure(1)
+# sns.heatmap(cm_percentage, annot=labels, fmt='', cmap='Blues', cbar=True, linewidths=0.5)
+# plt.title("Confusion Matrix with Percentages")
+# plt.xlabel("Predicted Label")
+# plt.ylabel("True Label")
+# plt.tight_layout()
+
+# # SHAP
+# explainer = shap.LinearExplainer(model, X_train)
+# shap_values = explainer(X_test)
+
+# # beeswarm plot with shap values
+# plt.figure(2)
+# plt.figure(figsize=(10, 8))
+# shap.summary_plot(shap_values.values, X_test, plot_type="dot", max_display=21, show=False)
+# plt.savefig("beeswarm_linearexplainer.png", bbox_inches="tight")
+
+# plt.figure(3)
+# plt.figure(figsize=(10, 8))
+# shap.summary_plot(shap_values.values, X_test, plot_type="dot", max_display=5, show=False)
+# plt.savefig("beeswarm_linearexplainer.png", bbox_inches="tight")
+
+# # Print both Beeswarm and Confusion Matrix plots
+# plt.show()
