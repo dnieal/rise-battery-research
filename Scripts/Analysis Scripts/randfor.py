@@ -54,6 +54,12 @@ print("Classification Report:\n" , classification_report(y_test, predictions))
 importances = model.feature_importances_
 features = X_train.columns
 
+# Print importances
+sorted_features = sorted(zip(importances, features), reverse=True)
+for importance, feature in sorted_features:
+    print(f"{importance:.2f} : {feature}")
+
+
 indices = np.argsort(importances)[::-1]  # Sort features by importance descending
 
 plt.figure(2)

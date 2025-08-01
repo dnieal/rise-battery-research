@@ -68,9 +68,15 @@ explainer = shap.LinearExplainer(model, X_train)
 shap_values = explainer(X_test)
 
 # beeswarm plot with shap values
+
 plt.figure(2)
 plt.figure(figsize=(10, 8))
-shap.plots.beeswarm(shap_values, order=shap_values.abs.max(0), max_display = 11)
+shap.summary_plot(shap_values.values, X_test, plot_type="dot", max_display=21, show=False)
+plt.savefig("beeswarm_linearexplainer.png", bbox_inches="tight")
+
+plt.figure(3)
+plt.figure(figsize=(10, 8))
+shap.summary_plot(shap_values.values, X_test, plot_type="dot", max_display=5, show=False)
 plt.savefig("beeswarm_linearexplainer.png", bbox_inches="tight")
 
 # Print both Beeswarm and Confusion Matrix plots
