@@ -39,7 +39,6 @@ labels = np.array([
     for row_counts, row_percents in zip(cm, cm_percentage)
 ])
 
-plt.figure(1)
 sns.heatmap(cm_percentage, annot=labels, fmt='', cmap='Blues', cbar=True, linewidths=0.5)
 plt.title("Confusion Matrix with Percentages")
 plt.xlabel("Predicted Label")
@@ -58,14 +57,34 @@ features = X_train.columns
 sorted_features = sorted(zip(importances, features), reverse=True)
 for importance, feature in sorted_features:
     print(f"{importance:.2f} : {feature}")
-
-
 indices = np.argsort(importances)[::-1]  # Sort features by importance descending
 
-plt.figure(2)
 plt.figure(figsize=(10,6))
 plt.title("Feature Importances (Random Forest)")
 plt.bar(range(len(importances)), importances[indices], align='center')
 plt.xticks(range(len(importances)), features[indices], rotation=90)
 plt.tight_layout()
 plt.savefig("rise-battery-research/Output/Results/Random Forrest Feature Importances", bbox_inches="tight")
+
+# PLOT WITH STD BARS
+# Extract feature importances for each tree
+all_importances = np.array([tree.feature_importances_ for tree in model.estimators_])
+
+# Calculate mean and std deviation of feature importances across trees
+mean_importances = np.mean(all_importances, axis=0)
+std_importances = np.std(all_importances, axis=0)
+
+# Sort features by mean importance descending
+indices = np.argsort(mean_importances)[::-1]
+sorted_features = X_train.columns[indices]
+sorted_means = mean_importances[indices]
+sorted_stds = std_importances[indices]
+
+# Plot with error bars
+plt.figure(figsize=(12,6))
+plt.bar(range(len(sorted_means)), sorted_means, yerr=sorted_stds, capsize=5, color='skyblue')
+plt.xticks(range(len(sorted_means)), sorted_features, rotation=90)
+plt.ylabel("Mean Feature Importance")
+plt.title("Random Forest Feature Importances with Standard Deviation")
+plt.tight_layout()
+plt.savefig("rise-battery-research/Output/Results/Random Forest Feature Importances with STD.png")

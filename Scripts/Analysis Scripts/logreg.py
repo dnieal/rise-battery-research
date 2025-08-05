@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.preprocessing import StandardScaler
+from sklearn.utils import resample
 from sklearn.ensemble import RandomForestClassifier
 
 # Import Dataset
@@ -43,14 +44,12 @@ labels = np.array([
     for row_counts, row_percents in zip(cm, cm_percentage)
 ])
 
-# plt.figure(1)
-# sns.heatmap(cm_percentage, annot=labels, fmt='', cmap='Blues', cbar=True, linewidths=0.5)
-
-# plt.title("Confusion Matrix with Percentages")
-# plt.xlabel("Predicted Label")
-# plt.ylabel("True Label")
-# plt.tight_layout()
-# plt.show()
+sns.heatmap(cm_percentage, annot=labels, fmt='', cmap='Blues', cbar=True, linewidths=0.5)
+plt.title("Confusion Matrix with Percentages for Base Logistic Regression Model")
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
+plt.tight_layout()
+plt.savefig("rise-battery-research/Output/Results/Confusion Matrix for Base Logistic Regression.png")
 
 # Get coefficients and sort by absolute value
 coef_df = pd.DataFrame({
@@ -69,12 +68,10 @@ shap_values = explainer(X_test)
 
 # beeswarm plot with shap values
 
-plt.figure(2)
 plt.figure(figsize=(10, 8))
 shap.summary_plot(shap_values.values, X_test, plot_type="dot", max_display=21, show=False)
 plt.savefig("rise-battery-research/Output/Results/Full SHAP for Without Battery Name.png", bbox_inches="tight")
 
-plt.figure(3)
 plt.figure(figsize=(10, 8))
 shap.summary_plot(shap_values.values, X_test, plot_type="dot", max_display=5, show=False)
 plt.savefig("rise-battery-research/Output/Results/Partial SHAP for Without Battery Name.png", bbox_inches="tight")
