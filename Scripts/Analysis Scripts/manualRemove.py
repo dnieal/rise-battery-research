@@ -110,7 +110,7 @@ for i in range(10):
     plt.figure(figsize=(10, 6))
     plt.bar(top5_names, top5_means, yerr=top5_stds, capsize=5, color='skyblue')
     plt.axhline(0, color='gray', linestyle='--')
-    plt.xticks(rotation=90, fontweight='bold')
+    plt.xticks(fontweight='bold')
     plt.title('Top 5 Logistic Regression Coefficients with Bootstrapped Standard Errors', fontweight='bold')
     plt.ylabel('Coefficient Value', fontweight='bold')
     plt.tight_layout()
