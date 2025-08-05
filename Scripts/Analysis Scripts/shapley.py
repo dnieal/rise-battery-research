@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
 import shap
 
 dataset = pd.read_csv("rise-battery-research\Data\Analysis Data\info2.csv")
@@ -44,3 +45,7 @@ shap_values = explainer(X_test)
 
 # beeswarm plot with shap values
 shap.plots.beeswarm(shap_values, order=shap_values.abs.max(0))
+
+
+shap.summary_plot(shap_values.values, X_test, plot_type="dot", max_display=5, show=False)
+plt.savefig("rise-battery-research/Output/Results/SHAP without Battery Name.png", bbox_inches="tight")

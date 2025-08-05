@@ -45,7 +45,7 @@ plt.title("Confusion Matrix with Percentages")
 plt.xlabel("Predicted Label")
 plt.ylabel("True Label")
 plt.tight_layout()
-plt.show()
+plt.savefig("rise-battery-research/Output/Results/Confusion Matrix for Random Forest", bbox_inches="tight")
 
 # Classification Report
 print("Classification Report:\n" , classification_report(y_test, predictions))
@@ -68,6 +68,4 @@ plt.title("Feature Importances (Random Forest)")
 plt.bar(range(len(importances)), importances[indices], align='center')
 plt.xticks(range(len(importances)), features[indices], rotation=90)
 plt.tight_layout()
-
-# Plots
-plt.show()
+plt.savefig("rise-battery-research/Output/Results/Random Forrest Feature Importances", bbox_inches="tight")
