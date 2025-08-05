@@ -83,8 +83,8 @@ sorted_stds = std_importances[indices]
 # Plot with error bars
 plt.figure(figsize=(12,6))
 plt.bar(range(len(sorted_means)), sorted_means, yerr=sorted_stds, capsize=5, color='skyblue')
-plt.xticks(range(len(sorted_means)), sorted_features, rotation=90)
-plt.ylabel("Mean Feature Importance")
-plt.title("Random Forest Feature Importances with Standard Deviation")
+plt.xticks(range(len(sorted_means)), sorted_features, rotation=90, fontweight='bold')
+plt.ylabel("Mean Feature Importance", fontweight='bold')
+plt.title("Random Forest Feature Importances with Standard Deviation", fontweight='bold')
 plt.tight_layout()
 plt.savefig("rise-battery-research/Output/Results/Random Forest Feature Importances with STD.png")

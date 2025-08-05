@@ -102,9 +102,9 @@ for i in range(10):
     plt.figure(figsize=(10, 6))
     plt.bar(feature_names, coef_means, yerr=coef_stds, capsize=5, color='skyblue')
     plt.axhline(0, color='gray', linestyle='--')
-    plt.xticks(rotation= 90)
-    plt.title('Logistic Regression Coefficients with Bootstrapped Standard Errors')
-    plt.ylabel('Coefficient Value')
+    plt.xticks(rotation= 90, fontweight='bold')
+    plt.title('Logistic Regression Coefficients with Bootstrapped Standard Errors', fontweight='bold')
+    plt.ylabel('Coefficient Value', fontweight='bold')
     plt.tight_layout()
     name_bar = f"rise-battery-research/Output/Results/Bar Plot with std error bars for {varname}.png"
     plt.savefig(name_bar)
@@ -183,9 +183,9 @@ for k in range(10):
 # PLOT ACCURACIES - mean accuracy from 100 train/test splits, bars are standard deviation bars
 plt.figure(figsize=(12, 6))
 plt.bar(v, mean_accuracies, yerr=std_accuracies, capsize=5, color='skyblue')
-plt.xticks(rotation=45, ha='right')
-plt.ylabel("Accuracy")
-plt.title("Model Accuracy by Feature Removal (with Std Dev Error Bars)")
+plt.xticks(rotation=45, ha='right', fontweight='bold')
+plt.ylabel("Accuracy", fontweight='bold')
+plt.title("Model Accuracy by Feature Removal (with Std Dev Error Bars)", fontweight='bold')
 plt.tight_layout()
 plt.savefig("rise-battery-research/Output/Results/All_Model_Accuracies_with_Error_Bars.png")
 
