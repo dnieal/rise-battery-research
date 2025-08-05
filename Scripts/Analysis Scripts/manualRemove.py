@@ -93,21 +93,30 @@ for i in range(10):
         coefs.append(model.coef_[0])
 
     coefs = np.array(coefs)
+    coefs = np.array(coefs)
     coef_means = np.mean(coefs, axis=0)
     coef_stds = np.std(coefs, axis=0)
+    feature_names = np.array(X.columns)  # make sure it's a NumPy array
 
-    # PLOT THE BAR GRAPHS 
-    feature_names = X.columns
+    # Get indices of the 5 largest coefficients by absolute value
+    top5_idx = np.argsort(np.abs(coef_means))[-5:][::-1]
 
+    # Slice data for the top 5
+    top5_means = coef_means[top5_idx]
+    top5_stds = coef_stds[top5_idx]
+    top5_names = feature_names[top5_idx]
+
+    # Plot
     plt.figure(figsize=(10, 6))
-    plt.bar(feature_names, coef_means, yerr=coef_stds, capsize=5, color='skyblue')
+    plt.bar(top5_names, top5_means, yerr=top5_stds, capsize=5, color='skyblue')
     plt.axhline(0, color='gray', linestyle='--')
-    plt.xticks(rotation= 90, fontweight='bold')
-    plt.title('Logistic Regression Coefficients with Bootstrapped Standard Errors', fontweight='bold')
+    plt.xticks(rotation=90, fontweight='bold')
+    plt.title('Top 5 Logistic Regression Coefficients with Bootstrapped Standard Errors', fontweight='bold')
     plt.ylabel('Coefficient Value', fontweight='bold')
     plt.tight_layout()
     name_bar = f"rise-battery-research/Output/Results/Bar Plot with std error bars for {varname}.png"
     plt.savefig(name_bar)
+
 
 # PLOT ACCURACY
 import pandas as pd
