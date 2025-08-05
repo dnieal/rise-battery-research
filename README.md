@@ -62,6 +62,7 @@ These steps assume that you have access to the Project/ folder and a computer wi
     - matplotlib 3.8.0
     - scikit-learn 1.4.1
     - shap 0.45.1
+    - kaleido 0.4.0
 
 
 4. Prepare the data:
