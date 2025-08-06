@@ -196,6 +196,7 @@ plt.xticks(rotation=45, ha='right', fontweight='bold')
 plt.ylabel("Accuracy", fontweight='bold')
 plt.title("Model Accuracy by Feature Removal (with Std Dev Error Bars)", fontweight='bold')
 plt.tight_layout()
+plt.ylim(0.4, 0.8)
 plt.savefig("rise-battery-research/Output/Results/All_Model_Accuracies_with_Error_Bars.png")
 
 # SHAP
