@@ -92,7 +92,9 @@ Project/
 
 │      ├── extractRaw.py
 
-│      └── finalcsv.py
+│      ├── finalcsv.py
+
+│      └── wBatteryName.py
 
 ```
 
@@ -113,7 +115,7 @@ We categorized percent decrease on whether it was above or below median.
 
 ## License
 
-Please visit our liscence file for more information. 
+Please visit our license file for more information. 
 
 ## Acknowledgements
 
@@ -152,12 +154,7 @@ These steps assume that you have access to the Project/ folder and a computer wi
 5. Run the analysis:
    - The main analysis script is logreg.py underneath the Analysis Scripts Folder. 
    - If executed, this script will load the constructed dataset and perform the logistic regression as well as the Shapley value method.
-   - *ADD ONCE VISUALIZATION CODE CREATED*
 
 6. Verify outputs:
-   - After running the scripts, check the Output/ folder:
-       - Output/Tables/ will contain CSV files summarizing results.
-       - Output/Figures/ will contain image files (e.g., .png) of plots and visualizations.
+   - After running the scripts, check the Output/Results folder, which will contain all necessary plots, visualizations, and summary figures. 
 
-
-Following these steps from start to finish will reproduce the results exactly as they are presented in the Output/ folder of this project.
