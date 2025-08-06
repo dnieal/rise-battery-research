@@ -1,24 +1,6 @@
 # rise-battery-research
 
-The global shift away from fossil fuels to reduce carbon emissions has intensified demand for
-lithium-ion batteries. Batteries considered to be “end-of-life” often retain sufficient residual
-capacity to be repurposed in “second-life” applications such as grid energy storage. In this study,
-we analyzed experimental data from Stanford’s Energy Control Lab, which simulated second-life
-grid storage conditions across nineteen discharge cycles for six electric vehicle (EV) batteries.
-We created a comprehensive analysis dataset by extracting important variables such as maximum
-discharge capacity, first-life operational characteristics, ambient temperature, and duty type from
-the raw data. We labeled each battery cycle to indicate whether their percentage capacity
-degradation exceeded the median value across all cycles. We developed and evaluated several
-machine learning models (logistic regression, random forest models, and KNN models) and
-utilized the Shapley method to identify key determinants of degradation. The logistic regression
-model had the highest predictive performance with 78% accuracy. Across all models, the
-ambient temperature and current number of cycles consistently were the primary predictors of
-battery health decline. The specific battery and past discharge capacity played a smaller but still
-significant role. Other factors such as past usage during the first life were found to have minimal
-impact on battery state of health. Our results offer important insights into the mechanisms
-governing second life lithium-ion battery degradation. We believe this research can be used to
-support more informed battery design and deployment strategies, contributing to longer battery
-life spans, cost effectiveness, and the advancement of a circular battery economy.
+The global shift away from fossil fuels to reduce carbon emissions has intensified demand for lithium-ion batteries. Batteries considered to be “end-of-life” often retain sufficient residual capacity to be repurposed in “second-life” applications such as grid energy storage. In this study, we analyzed experimental data from Stanford’s Energy Control Lab, which simulated second-life grid storage conditions across nineteen discharge cycles for six electric vehicle (EV) batteries. We created a comprehensive analysis dataset by extracting important variables such as maximum discharge capacity, first-life operational characteristics, ambient temperature, and duty type from the raw data. We labeled each battery cycle to indicate whether their percentage capacity degradation exceeded the median value across all cycles. We developed and evaluated several machine learning models (logistic regression, random forest models, and KNN models) and utilized the Shapley method to identify key determinants of degradation. The logistic regression model had the highest predictive performance with 78% accuracy. Across all models, the ambient temperature and current number of cycles consistently were the primary predictors of battery health decline. The specific battery and past discharge capacity played a smaller but still significant role. Other factors such as past usage during the first life were found to have minimal impact on battery state of health. Our results offer important insights into the mechanisms governing second life lithium-ion battery degradation. We believe this research can be used to support more informed battery design and deployment strategies, contributing to longer battery life spans, cost effectiveness, and the advancement of a circular battery economy.
 
 
 Keywords: Lithium-Ion Batteries, Second-Life Batteries, Circular Battery Economy, Maximum
@@ -41,7 +23,8 @@ No specialized hardware is required beyond a standard personal computer with at 
 
 ## Documentation Map
 
-<pre>'''Project/
+'''
+Project/
 
 ├── README.md
 
@@ -106,7 +89,9 @@ No specialized hardware is required beyond a standard personal computer with at 
 
 │      ├── extractRaw.py
 
-│      └── finalcsv.py'''<pre>
+│      └── finalcsv.py
+
+'''
 
 
 
