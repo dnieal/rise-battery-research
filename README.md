@@ -49,37 +49,54 @@ No specialized hardware is required beyond a standard personal computer with at 
 
 │   ├── Analysis Data/
 
-│   │   └── info2.csv
+│      └── info2.csv
 
-│   │   └── infoBatName.csv
+│      └── infoBatName.csv
 
 │   ├── Input Data/
 
-│   │   └── diagnostic tests/
+│      └── diagnostic tests/
 
-│   │      ├── RPT_1/
+│         ├── RPT_1/
 
-│   │         └── Capacity_test_with_pulses
+│            └── Capacity_test_with_pulses
 
             ├──(other RPT folders…)
 
-│   │      └── RPT_19/
+│         └── RPT_19/
 
-│   │         └── Capacity_test_with_pulses
+│            └── Capacity_test_with_pulses
 
 │   ├── Intermediate Data/
 
-│   │   ├── info.csv
+│      ├── info.csv
 
-│   │   ├── rawInfo.csv
+│      ├── rawInfo.csv
 
-│   │   └── rawInfo2.csv
+│      └── rawInfo2.csv
+
+├── Output/
+
+│   ├── Results/
+
+│      └── Batteries Full Data Analysis.pdf
+
+│      └──(individual pngs of all figures generated)
 
 ├── Scripts/
 
 │   ├── Analysis Scripts/
 
-│   │   └── logreg.py
+│      └── knn.py
+
+│      └── logreg.py
+
+│      └── manualRemove.py
+
+│      └── randfor.py
+
+│      └── shapley.py
+
 
 │   └── Processing Scripts/
 
