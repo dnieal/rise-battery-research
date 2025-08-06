@@ -23,7 +23,7 @@ No specialized hardware is required beyond a standard personal computer with at 
 
 ## Documentation Map
 
-'''
+```
 Project/
 
 ├── README.md
@@ -91,8 +91,7 @@ Project/
 
 │      └── finalcsv.py
 
-'''
-
+```
 
 
 ## Instructions for Reproducing Results
