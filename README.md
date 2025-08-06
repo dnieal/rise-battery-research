@@ -35,15 +35,15 @@ Project/
 
 │   │   └── diagnostic tests/
 
-│   │       ├── RPT_1/
+│   │      ├── RPT_1/
 
-│   │       │   └── Capacity_test_with_pulses
+│   │         └── Capacity_test_with_pulses
 
             ├──(other RPT folders…)
 
-│   │       └── RPT_19/
+│   │      └── RPT_19/
 
-│   │           └── Capacity_test_with_pulses
+│   │         └── Capacity_test_with_pulses
 
 │   ├── Intermediate Data/
 
@@ -61,13 +61,13 @@ Project/
 
 │   └── Processing Scripts/
 
-│       ├── csvediting.py
+│      ├── csvediting.py
 
-│       ├── csvediting2.py
+│      ├── csvediting2.py
 
-│       ├── extractRaw.py
+│      ├── extractRaw.py
 
-│       └── finalcsv.py
+│      └── finalcsv.py
 
 
 
