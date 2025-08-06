@@ -3,8 +3,7 @@
 The global shift away from fossil fuels to reduce carbon emissions has intensified demand for lithium-ion batteries. Batteries considered to be “end-of-life” often retain sufficient residual capacity to be repurposed in “second-life” applications such as grid energy storage. In this study, we analyzed experimental data from Stanford’s Energy Control Lab, which simulated second-life grid storage conditions across nineteen discharge cycles for six electric vehicle (EV) batteries. We created a comprehensive analysis dataset by extracting important variables such as maximum discharge capacity, first-life operational characteristics, ambient temperature, and duty type from the raw data. We labeled each battery cycle to indicate whether their percentage capacity degradation exceeded the median value across all cycles. We developed and evaluated several machine learning models (logistic regression, random forest models, and KNN models) and utilized the Shapley method to identify key determinants of degradation. The logistic regression model had the highest predictive performance with 78% accuracy. Across all models, the ambient temperature and current number of cycles consistently were the primary predictors of battery health decline. The specific battery and past discharge capacity played a smaller but still significant role. Other factors such as past usage during the first life were found to have minimal impact on battery state of health. Our results offer important insights into the mechanisms governing second life lithium-ion battery degradation. We believe this research can be used to support more informed battery design and deployment strategies, contributing to longer battery life spans, cost effectiveness, and the advancement of a circular battery economy.
 
 
-Keywords: Lithium-Ion Batteries, Second-Life Batteries, Circular Battery Economy, Maximum
-Discharge Capacity, Renewable Energy, Sustainability
+Keywords: Lithium-Ion Batteries, Second-Life Batteries, Circular Battery Economy, Maximum Discharge Capacity, Renewable Energy, Sustainability
 
 ## Section 1: Software and Platform
 
@@ -25,6 +24,10 @@ No specialized hardware is required beyond a standard personal computer with at 
 
 ```
 Project/
+
+├── environment.txt
+
+├── LICENSE.md
 
 ├── README.md
 
@@ -92,6 +95,29 @@ Project/
 │      └── finalcsv.py
 
 ```
+
+## Data
+
+We used data from [Stanford's Energy Control Labratory](https://onorilab.stanford.edu/products/code-and-data-set). The specific dataset we used came from the Diagnostic Tests under the "Second-life lithium-ion battery aging dataset based on grid storage cycling". We do not claim ownership over this data. 
+
+## Pre Processing
+
+For the preprocessing of our data, we followed the following steps:
+
+1. Data Identification: Identify trends and features to extract from dataset
+2. Raw Dataset Extraction: Extract raw data from Diagnostic Tests 
+3. Incorporation of Additional Information: Add additional information (e.g. First Life Metrics, Usage Type) 
+4. Data Cleaning: Format and categorize data (e.g. one hot encoding, labeling)
+
+We categorized percent decrease on whether it was above or below median. 
+
+## License
+
+Please visit our liscence file for more information. 
+
+## Acknowledgements
+
+We would like to thank the BU RISE program for making this research opportunity possible for us. We are especially grateful towards Patrick Bloniasz, Dr. Eugene Pinsky, and all of the Teaching Fellows for their knowledge, guidance, and dedication to the data science course. Finally, we would like to thank our family for their continued support throughout this process. 
 
 
 ## Instructions for Reproducing Results
